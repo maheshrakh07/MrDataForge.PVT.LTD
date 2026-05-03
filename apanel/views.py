@@ -10,7 +10,7 @@ def login(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
-        if username == "admin@gmail.com" and password == "admin123":
+        if username == "MrdataForge0745@gmail.com" and password == "MrdataForge07456@gmail.com":
             return redirect("/admin/home")
     return render(req, "admin/login.html")
 
