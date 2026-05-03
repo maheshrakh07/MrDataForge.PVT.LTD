@@ -27,7 +27,7 @@ def login(req):
 
 def logout(req):
     req.session.flush()
-    return redirect("/admin/login")
+    return redirect("/admin/")
 
 
 def home(req):
