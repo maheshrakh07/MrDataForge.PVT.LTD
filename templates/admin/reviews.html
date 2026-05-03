@@ -1,0 +1,288 @@
+{% include "admin/navbar.html" %}
+<style>
+   /* FORM CONTAINER */ 
+   /* FORM CONTAINER */
+.course-form{
+    width:100%;
+    max-width:100%;
+    background:#fff;
+    padding:30px;
+    border-radius:24px;
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+    border:1px solid #edf2f7;
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+
+    font-family:'Poppins',sans-serif;
+    margin-top:30px;
+}
+
+/* HEADING */
+.course-form h2{
+    grid-column:1 / -1;
+    font-size:28px;
+    color:#0f172a;
+    margin-bottom:10px;
+}
+
+/* FORM GROUP */
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+/* FULL WIDTH */
+.form-group.full-width{
+    grid-column:1 / -1;
+}
+
+/* LABEL */
+.form-group label{
+    font-size:14px;
+    font-weight:600;
+    color:#334155;
+    margin-bottom:8px;
+}
+
+/* INPUT / TEXTAREA / SELECT */
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    background:#f8fafc;
+    outline:none;
+    transition:.3s;
+    font-size:14px;
+    font-family:'Poppins',sans-serif;
+}
+
+/* FOCUS */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#d97706;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(217,119,6,.08);
+}
+
+/* TEXTAREA */
+.form-group textarea{
+    min-height:140px;
+    resize:vertical;
+}
+
+/* FILE INPUT */
+.form-group input[type="file"]{
+    padding:10px;
+    background:#fff;
+}
+
+/* BUTTON */
+.course-form button{
+    grid-column:1 / -1;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 12px 25px rgba(217,119,6,.15);
+}
+
+.course-form button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 30px rgba(217,119,6,.25);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .course-form{
+        grid-template-columns:1fr;
+        padding:20px;
+    }
+
+    .course-form h2,
+    .course-form button,
+    .form-group.full-width{
+        grid-column:auto;
+    }
+}
+.form-group select{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    background:#f8fafc;
+    outline:none;
+    transition:.3s;
+    font-size:14px;
+}
+
+.form-group select:focus{
+    border-color:#d97706;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(217,119,6,.08);
+}
+
+
+/* TABLE WRAPPER */
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    margin-top:30px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+    background:#fff;
+}
+
+/* TABLE */
+.table{
+    width:100%;
+    min-width:1000px;
+    border-collapse:collapse;
+    font-family:'Poppins',sans-serif;
+}
+
+/* HEADER */
+.table thead{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:#fff;
+}
+
+.table th{
+    padding:18px 20px;
+    text-align:left;
+    font-size:14px;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+/* BODY */
+.table td{
+    padding:18px 20px;
+    border-bottom:1px solid #f1f5f9;
+    color:#334155;
+    font-size:14px;
+    vertical-align:middle;
+}
+
+/* ROW HOVER */
+.table tbody tr{
+    transition:.3s;
+}
+
+.table tbody tr:hover{
+    background:#fff7ed;
+}
+
+/* ZEBRA */
+.table tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+/* REVIEW TEXT */
+.table td:nth-child(4){
+    max-width:300px;
+    white-space:normal;
+    line-height:1.6;
+}
+
+/* IMAGE */
+.table img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:14px;
+    border:2px solid #e2e8f0;
+}
+
+/* STAR RATING STYLE */
+.table td:nth-child(5){
+    font-size:18px;
+    color:#f59e0b;
+    font-weight:700;
+}
+
+/* SCROLLBAR */
+.table-wrapper::-webkit-scrollbar{
+    height:10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb{
+    background:#d97706;
+    border-radius:10px;
+}
+   </style>
+<form method="post" action="/admin/save_review/" enctype="multipart/form-data" class="course-form">
+    {% csrf_token %}
+    <h2>Add Review</h2>
+    <div class="form-group">
+        <label for="reviewer_name">Reviewer Name:</label>
+        <input type="text" id="reviewer_name" name="reviewer_name" required>
+    </div>
+    <div class="form-group">
+        <label for="reviewer_position">Reviewer Position:</label>
+        <input type="text" id="reviewer_position" name="reviewer_position" required>
+    </div>
+    <div class="form-group">
+        <label for="review_text">Review Text:</label>
+        <textarea id="review_text" name="review_text" rows="4" required></textarea>
+    </div>
+   
+    <div class="form-group">
+        <label for="review_rating">Review Rating:</label>
+        <select id="review_rating" name="review_rating" required>
+            <option value="">Select Rating</option>
+            <option value="⭐">⭐</option>
+            <option value="⭐⭐">⭐⭐</option>
+            <option value="⭐⭐⭐">⭐⭐⭐</option>
+            <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+            <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="reviewer_image">Reviewer Image:</label>
+        <input type="file" id="reviewer_image" name="reviewer_image" accept="image/*">
+    </div>
+    <button type="submit">Add Review</button>
+</form>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Reviewer Name</th>
+            <th>Reviewer Position</th>
+            <th>Review Text</th>
+            <th>Review Rating</th>
+            <th>Reviewer Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in reviews %}
+        <tr>
+            <td>{{ review.id }}</td>
+            <td>{{ review.reviewer_name }}</td>
+            <td>{{ review.reviewer_position }}</td>
+            <td>{{ review.review_text }}</td>
+            <td>{{ review.review_rating }}</td>
+            <td><img src="{{ review.reviewer_image.url }}" alt="Reviewer Image" width="100"></td>
+            <td>
+                <a href="/admin/delete_review/{{ review.id }}/" class="delete-btn">Delete</a>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include "admin/footer.html" %}

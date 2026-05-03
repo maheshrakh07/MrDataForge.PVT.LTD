@@ -1,0 +1,59 @@
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr DataForge</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="topbar">
+    <div class="topbar-left">
+        <a href="tel:+918983012051"><i class="fas fa-phone"></i> +91 73787 82129</a>
+
+        <a href="https://www.instagram.com/mr_dataforge?igsh=MWZrZHJ6a2xtcWVnag==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="www.linkedin.com/in/mahesh-rakh-a98b51247" target="_blank"><i class="fab fa-linkedin"></i></a>
+        {% comment %} <a href="#" target="_blank"><i class="fab fa-youtube"></i></a> {% endcomment %}
+        <a href="https://www.facebook.com/share/1E8ujvWwvD/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    </div>
+
+    <div class="topbar-center"> 
+        🚀 Admissions Open for Python / Full Stack / Data Science
+    </div>
+
+    <div class="topbar-right">
+        <a href="#" class="btn batch-btn">
+            <i class="fas fa-calendar-alt"></i> Upcoming Batches
+        </a>
+        <a href="#" class="btn enquiry-btn">
+            <i class="fas fa-envelope"></i> Enquiry
+        </a>
+    </div>
+</div>
+<nav class="navbar">
+    <div class="logo">
+        <img src="/static/user/logo.png" alt="Logo">
+        <span>Mr DataForge</span>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/course">Course</a></li>
+        <li><a href="/Services">Services</a></li>
+        <li><a href="/internship">Internship</a></li>
+        <li><a href="/student_project">Student Projects</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact" class="contact-btn">Contact Us</a></li>
+    </ul>
+
+    <div class="menu-toggle" id="menuToggle">
+        ☰
+    </div>
+</nav>
+
