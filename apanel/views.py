@@ -25,6 +25,11 @@ def login(req):
 
     return render(req, "admin/login.html")
 
+def logout(req):
+    req.session.flush()
+    return redirect("/admin/login")
+
+
 def home(req):
     if not req.session.get("is_admin_logged_in"):
         return redirect("/admin/login")
