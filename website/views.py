@@ -2,6 +2,7 @@ from django.shortcuts import render ,redirect
 from . import models
 from apanel import models as admin_models
 # Create your views here.
+
 def home(req):
     all_courses = admin_models.Course.objects.count()
     all_reviews = admin_models.Review.objects.all()

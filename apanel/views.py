@@ -4,6 +4,16 @@ from django.shortcuts import render , redirect
 from website import models as user
 from . import models
 # Create your views here.
+
+
+def login(req):
+    if req.method == "POST":
+        username = req.POST.get("username")
+        password = req.POST.get("password")
+        if username == "admin@gmail.com" and password == "admin123":
+            return redirect("/admin/home")
+    return render(req, "admin/login.html")
+
 def home(req):
     all_courses = models.Course.objects.count()
     return render(req, "admin/index.html", {"all_courses": all_courses})
