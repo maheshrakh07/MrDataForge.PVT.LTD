@@ -1,0 +1,216 @@
+<style>
+    /* =========================
+   QUESTION GRID
+========================= */
+.questions-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+}
+
+/* QUESTION BOX */
+.question-box{
+    background:#f8fafc;
+
+    border:2px solid #e2e8f0;
+    border-radius:24px;
+
+    padding:25px;
+
+    transition:.3s;
+}
+
+.question-box:hover{
+    border-color:#f59e0b;
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.06);
+}
+
+/* QUESTION NUMBER */
+.question-number-box{
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:18px;
+}
+
+/* TITLE */
+.question-title{
+    font-size:24px;
+
+    line-height:1.5;
+
+    margin-bottom:25px;
+
+    color:#0f172a;
+}
+
+/* OPTIONS */
+.options-container{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+/* OPTION */
+.option-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:16px 18px;
+
+    border:2px solid #e2e8f0;
+    border-radius:16px;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.option-item:hover{
+    border-color:#f59e0b;
+    background:#fff7ed;
+}
+
+/* RADIO */
+.option-item input{
+    width:20px;
+    height:20px;
+
+    accent-color:#f59e0b;
+}
+
+/* TEXT */
+.option-item span{
+    font-size:15px;
+    color:#334155;
+}
+
+/* SUBMIT */
+.submit-btn{
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    color:#fff;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    margin-top:30px;
+
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 25px rgba(217,119,6,.25);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+    .questions-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+
+<div class="question-content">
+
+    <form method="post" action="/submit_test/" id="testForm">
+
+        {% csrf_token %}
+
+        <div class="questions-grid">
+
+            {% for question in paper %}
+
+            <div class="question-box">
+
+                <div class="question-number-box">
+                    Question {{ forloop.counter }}
+                </div>
+
+                <h2 class="question-title">
+                    {{ question.quetion }}
+                </h2>
+
+                <div class="options-container">
+
+                    <label class="option-item">
+                        <input type="radio"
+                        name="selected_ans{{ question.id }}"
+                        value="option_1">
+
+                        <span>{{ question.option_1 }}</span>
+                    </label>
+
+                    <label class="option-item">
+                        <input type="radio"
+                        name="selected_ans{{ question.id }}"
+                        value="option_2">
+
+                        <span>{{ question.option_2 }}</span>
+                    </label>
+
+                    <label class="option-item">
+                        <input type="radio"
+                        name="selected_ans{{ question.id }}"
+                        value="option_3">
+
+                        <span>{{ question.option_3 }}</span>
+                    </label>
+
+                    <label class="option-item">
+                        <input type="radio"
+                        name="selected_ans{{ question.id }}"
+                        value="option_4">
+
+                        <span>{{ question.option_4 }}</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- BUTTON -->
+        <div class="test-actions">
+
+            <button type="submit" class="submit-btn">
+                Submit Test
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

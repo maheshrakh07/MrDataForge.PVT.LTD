@@ -1,0 +1,462 @@
+<style>
+    /* =========================
+   RESET
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8fafc;
+    overflow-x:hidden;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.aptitude-dashboard-layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.dashboard-sidebar{
+    width:280px;
+    background:linear-gradient(180deg,#0f172a,#1e293b);
+
+    padding:30px 20px;
+
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+
+    overflow-y:auto;
+}
+
+/* LOGO */
+.sidebar-logo{
+    margin-bottom:40px;
+}
+
+.sidebar-logo h2{
+    color:#fff;
+    font-size:28px;
+}
+
+/* MENU */
+.sidebar-menu{
+    list-style:none;
+}
+
+.sidebar-menu li{
+    margin-bottom:12px;
+}
+
+.sidebar-menu li a{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:16px 18px;
+
+    border-radius:16px;
+
+    text-decoration:none;
+    color:#cbd5e1;
+
+    transition:.3s;
+}
+
+.sidebar-menu li a i{
+    font-size:18px;
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li.active a{
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+    color:#fff;
+
+    transform:translateX(5px);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.dashboard-main{
+    margin-left:280px;
+    width:calc(100% - 280px);
+
+    padding:30px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.dashboard-header{
+    width:100%;
+
+    background:#fff;
+
+    padding:20px 30px;
+
+    border-radius:24px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    margin-bottom:40px;
+}
+
+/* TITLE */
+.header-title h2{
+    font-size:28px;
+    color:#0f172a;
+}
+
+/* =========================
+   PROFILE
+========================= */
+.profile-wrapper{
+    position:relative;
+}
+
+.dashboard-profile{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    cursor:pointer;
+}
+
+.dashboard-profile img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #f59e0b;
+}
+
+.profile-info h4{
+    color:#0f172a;
+    font-size:16px;
+}
+
+.profile-info p{
+    color:#64748b;
+    font-size:13px;
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+.profile-dropdown{
+    position:absolute;
+    top:110%;
+    right:0;
+
+    width:220px;
+
+    background:#fff;
+    border-radius:20px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+    padding:10px;
+
+    display:none;
+    flex-direction:column;
+
+    z-index:999;
+}
+
+.profile-dropdown.active{
+    display:flex;
+}
+
+.profile-dropdown a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+    color:#334155;
+
+    transition:.3s;
+}
+
+.profile-dropdown a:hover{
+    background:#fff7ed;
+    color:#d97706;
+}
+
+/* =========================
+   HERO
+========================= */
+.dashboard-hero{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:50px;
+    align-items:center;
+}
+
+/* HERO CONTENT */
+.hero-content span{
+    display:inline-block;
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:22px;
+}
+
+.hero-content h1{
+    font-size:58px;
+    line-height:1.2;
+
+    color:#0f172a;
+
+    margin-bottom:25px;
+}
+
+.hero-content p{
+    color:#64748b;
+    line-height:1.9;
+
+    margin-bottom:35px;
+}
+
+/* BUTTON */
+.start-test-btn{
+    display:inline-block;
+
+    padding:16px 30px;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.start-test-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 30px rgba(217,119,6,.25);
+}
+
+/* IMAGE */
+.hero-image img{
+    width:100%;
+    border-radius:30px;
+    box-shadow:0 25px 50px rgba(0,0,0,.12);
+
+    animation:floatImage 4s ease-in-out infinite;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes floatImage{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:992px){
+
+    .dashboard-sidebar{
+        width:90px;
+    }
+
+    .sidebar-logo h2,
+    .sidebar-menu li a span{
+        display:none;
+    }
+
+    .dashboard-main{
+        margin-left:90px;
+        width:calc(100% - 90px);
+    }
+
+    .dashboard-hero{
+        grid-template-columns:1fr;
+    }
+
+    .hero-content h1{
+        font-size:42px;
+    }
+}
+
+@media(max-width:768px){
+
+    .dashboard-header{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .hero-content h1{
+        font-size:34px;
+    }
+}
+</style>
+
+
+<section class="aptitude-dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar">
+
+        <div class="sidebar-logo">
+            <h2>MR DATAFORGE</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/test/">
+                    <i class="fas fa-laptop-code"></i>
+                    Test 1
+                </a>
+            </li>
+            
+            <li>
+                <a href="/apti_logout">
+                    <i class="fas fa-chart-bar"></i>
+                    logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="dashboard-main">
+
+        <!-- HEADER -->
+        <header class="dashboard-header">
+
+            <div class="header-title">
+                <h2>Python Aptitude Dashboard</h2>
+            </div>
+
+            <!-- PROFILE -->
+            <div class="profile-wrapper">
+
+                <div class="dashboard-profile" id="profileToggle">
+
+                    <img src="/{{ profile.photo }}">
+
+                    <div class="profile-info">
+                        <h4>{{ profile.name }}</h4>
+                        <p>Student</p>
+                    </div>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </div>
+
+                <!-- DROPDOWN -->
+                <div class="profile-dropdown" id="profileDropdown">
+
+                    <a href="#">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+
+                    <a href="/apti_logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <div class="dashboard-hero">
+
+            <div class="hero-content">
+
+                <span>PYTHON APTITUDE TEST</span>
+
+                <h1>
+                    Improve Your Python Logic & Skills 🚀
+                </h1>
+
+                <p>
+                    Start your aptitude test and evaluate your
+                    problem-solving, programming fundamentals,
+                    and logical thinking ability.
+                </p>
+
+                <a href="#" class="start-test-btn">
+                    Start Test Now
+                </a>
+
+            </div>
+
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+const profileToggle = document.getElementById("profileToggle");
+const profileDropdown = document.getElementById("profileDropdown");
+
+profileToggle.addEventListener("click", () => {
+    profileDropdown.classList.toggle("active");
+});
+
+document.addEventListener("click", function(e){
+    if(
+        !profileToggle.contains(e.target) &&
+        !profileDropdown.contains(e.target)
+    ){
+        profileDropdown.classList.remove("active");
+    }
+});
+</script>

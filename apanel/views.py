@@ -10,48 +10,37 @@ def login(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
-
-        if username == "MrdataForge0745@gmail.com" and password == "MrdataForge07456@gmail.com":
-
-            req.session["admin_username"] = username
-            req.session["is_admin_logged_in"] = True
-            req.session.set_expiry(1800)   # 30 min
-
-            return redirect("/admin/home")
-
-        return render(req, "admin/login.html", {
-            "error": "Invalid username or password"
-        })
-
+        if username == "admin@gmail.com" and password == "admin123":
+            req.session["admin"] = username
+            req.session["admin_logged_in"] = True
+            return redirect("/admin/home")      
     return render(req, "admin/login.html")
 
-def logout(req):
-    req.session.flush()
-    return redirect("/admin/")
-
-
 def home(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     all_courses = models.Course.objects.count()
-    return render(req, "admin/index.html", {"all_courses": all_courses})
+    apti_user = user.AptitudeTestRegistration.objects.all()
+    return render(req, "admin/index.html", {"all_courses": all_courses, "apti_user": apti_user})
 
 def registration_list(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+    
     reg_list = user.Enquiry.objects.all()
     return render(req , "admin/registration_list.html", {"reg_list":reg_list})
 
 
 def course(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+    
     courses = models.Course.objects.all()
     return render(req, "admin/course.html", {"courses": courses})
 
 
 def save_course(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     if req.method == "POST":
         name = req.POST.get("course_name")
@@ -81,8 +70,9 @@ def save_course(req):
     return redirect("/admin/course")
 
 def edit_course(req, course_id):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+    
     course = models.Course.objects.get(id=course_id)
     if req.method == "POST":
         course.name = req.POST.get("course_name")
@@ -101,8 +91,9 @@ def edit_course(req, course_id):
     return render(req, "admin/edit_course.html", {"course": course})
 
 def delete_course(req, course_id):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+    
     course = models.Course.objects.get(id=course_id)
     image_path = course.image.path
     if os.path.exists(image_path):
@@ -112,34 +103,36 @@ def delete_course(req, course_id):
 
 
 def reviews(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+    
     reviews = models.Review.objects.all()
     return render(req, "admin/reviews.html", {"reviews": reviews})
 
 def internship(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+    
     return render(req, "admin/internship.html")
 
 def projects(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     return render(req, "admin/projects.html")
 
 def blogs(req):
-    if not req.session.get("is_admin_logged_in"):
-        return redirect("/admin/login")
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login") 
     return render(req, "admin/blogs.html")
 
 def gallery(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     return render(req, "admin/gallery.html")
 
 def save_review(req):
-    if not req.session.get("is_admin_logged_in"):
-        return redirect("/admin/login")
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login") 
     if req.method == "POST":
         reviewer_name = req.POST.get("reviewer_name")
         review_text = req.POST.get("review_text")
@@ -158,8 +151,9 @@ def save_review(req):
     return redirect("/admin/reviews")
 
 def delete_review(req, review_id):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
+        
     review = models.Review.objects.get(id=review_id)
     image_path = review.reviewer_image.path
     if os.path.exists(image_path):
@@ -169,14 +163,13 @@ def delete_review(req, review_id):
 
 
 def team(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     team_members = models.TeamMember.objects.all()
     return render(req, "admin/team.html", {"team_members": team_members})
 
-
 def save_team_member(req):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     if req.method == "POST":
         name = req.POST.get("name")
@@ -214,14 +207,14 @@ def save_team_member(req):
     return redirect("/admin/team")
 
 def edit_team_member(req, member_id):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     team_member = models.TeamMember.objects.get(id=member_id)
     return render(req, "admin/edit_team_member.html", {"team_member": team_member})
 
 def update_team_member(req, member_id):
-    if not req.session.get("is_admin_logged_in"):
-        return redirect("/admin/login")
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login") 
     team_member = models.TeamMember.objects.get(id=member_id)
     if req.method == "POST":
         team_member.name = req.POST.get("name")
@@ -243,7 +236,7 @@ def update_team_member(req, member_id):
     return redirect("/admin/team")
 
 def delete_team_member(req, member_id):
-    if not req.session.get("is_admin_logged_in"):
+    if not req.session.get("admin_logged_in"):
         return redirect("/admin/login")
     team_member = models.TeamMember.objects.get(id=member_id)
     image_path = team_member.image.path
@@ -251,3 +244,57 @@ def delete_team_member(req, member_id):
         os.remove(image_path)
     team_member.delete()
     return redirect("/admin/team")
+
+
+def question_paper(req):
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login") 
+    questions = models.QuestionPaper.objects.all()
+    return render(req, "admin/question_paper.html", {"questions": questions})   
+
+
+
+def add_question(req):
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login")
+    if req.method == "POST":
+        question = req.POST.get("question")
+        option_1 = req.POST.get("option_1")
+        option_2 = req.POST.get("option_2")
+        option_3 = req.POST.get("option_3")
+        option_4 = req.POST.get("option_4")
+        answer = req.POST.get("answer")
+        marks = req.POST.get("marks")
+
+        question_obj = models.QuestionPaper(
+            quetion=question,
+            option_1=option_1,
+            option_2=option_2,
+            option_3=option_3,
+            option_4=option_4,
+            answer=answer,
+            marks=marks
+         )
+        question_obj.save()
+    return redirect("/admin/question_paper")
+
+def delete_question(req, question_id):
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login") 
+    question = models.QuestionPaper.objects.get(id=question_id)
+    question.delete()
+    return redirect("/admin/question_paper")
+
+
+def results(req):
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login")
+    results = user.Result.objects.all()
+    return render(req, "admin/apti_result.html", {"results": results})  
+
+
+def apti_regi_list(req):
+    if not req.session.get("admin_logged_in"):
+        return redirect("/admin/login")
+    registrations = user.AptitudeTestRegistration.objects.all()
+    return render(req, "admin/apti_user_list.html", {"registrations": registrations})

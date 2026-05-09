@@ -5,7 +5,6 @@ from . import views
 
 urlpatterns = [
     path('' , views.login , name="login"),
-    path('logout/' , views.logout , name="logout"),
     path('home/' , views.home , name="home"),
     path('registration_list/' , views.registration_list , name="registration_list"),
     path('course/' , views.course , name="course"),
@@ -24,4 +23,9 @@ urlpatterns = [
     path('edit_team_member/<int:member_id>/', views.edit_team_member, name="edit_team_member"),
     path('delete_team_member/<int:member_id>/', views.delete_team_member, name="delete_team_member"),
     path('update_team_member/<int:member_id>/', views.update_team_member, name="update_team_member"),
+    path('question_paper/' , views.question_paper , name="question_paper"),
+    path('add_question/' , views.add_question , name="add_question"),
+    path('delete_question/<int:question_id>/', views.delete_question, name="delete_question"),
+    path('results/' , views.results , name="results"),
+    path('apti_regi_list/' , views.apti_regi_list , name="apti_regi_list"),
 ]

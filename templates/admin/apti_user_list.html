@@ -1,0 +1,311 @@
+{% include "admin/navbar.html" %}
+
+
+<style>
+    /* =========================
+   PAGE
+========================= */
+.table-page{
+    width:100%;
+
+    padding:30px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:30px;
+}
+
+/* TAG */
+.page-header span{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:12px;
+}
+
+/* TITLE */
+.page-header h1{
+    font-size:38px;
+
+    color:#0f172a;
+}
+
+/* COUNT */
+.student-count{
+    background:#fff;
+
+    padding:18px 24px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    font-size:15px;
+
+    color:#334155;
+}
+
+.student-count strong{
+    color:#d97706;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+.table-wrapper{
+    width:100%;
+
+    background:#fff;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+
+    border:1px solid #edf2f7;
+}
+
+/* =========================
+   TABLE
+========================= */
+.student-table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    font-family:'Poppins',sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+.student-table thead{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.student-table th{
+    padding:22px;
+
+    text-align:left;
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+/* =========================
+   BODY
+========================= */
+.student-table td{
+    padding:20px;
+
+    border-bottom:1px solid #f1f5f9;
+
+    color:#334155;
+
+    font-size:14px;
+
+    vertical-align:middle;
+}
+
+/* ROW EFFECT */
+.student-table tbody tr{
+    transition:.3s;
+}
+
+.student-table tbody tr:hover{
+    background:#fff7ed;
+}
+
+/* ZEBRA */
+.student-table tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+/* =========================
+   IMAGE
+========================= */
+.student-table img{
+    width:70px;
+    height:70px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    border:3px solid #fff7ed;
+}
+
+/* =========================
+   GENDER BADGES
+========================= */
+.male-badge,
+.female-badge{
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:40px;
+
+    font-size:13px;
+    font-weight:600;
+}
+
+/* MALE */
+.male-badge{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+/* FEMALE */
+.female-badge{
+    background:#fce7f3;
+    color:#db2777;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1000px){
+
+    .table-wrapper{
+        overflow-x:auto;
+    }
+
+    .student-table{
+        min-width:900px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+
+        gap:20px;
+    }
+
+    .page-header h1{
+        font-size:30px;
+    }
+
+}
+</style>
+<div class="table-page">
+
+    <!-- PAGE TITLE -->
+    <div class="page-header">
+
+        <div>
+            <span>APTITUDE TEST</span>
+            <h1>Registered Students</h1>
+        </div>
+
+        <div class="student-count">
+            Total Students :
+            <strong>{{ registrations|length }}</strong>
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+
+        <table class="student-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Password</th>
+                    <th>Gender</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for registration in registrations %}
+
+                <tr>
+
+                    <td>
+
+                        <img
+                        src="{{ registration.photo.url }}"
+                        alt="Photo">
+
+                    </td>
+
+                    <td>
+                        {{ registration.name }}
+                    </td>
+
+                    <td>
+                        {{ registration.email }}
+                    </td>
+
+                    <td>
+                        {{ registration.mobile }}
+                    </td>
+
+                    <td>
+                        {{ registration.password }}
+                    </td>
+
+                    <td>
+
+                        {% if registration.gender == "Male" %}
+
+                        <span class="male-badge">
+                            Male
+                        </span>
+
+                        {% else %}
+
+                        <span class="female-badge">
+                            Female
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,249 @@
+{% include "admin/navbar.html" %}
+<style>
+    /* =========================
+   PAGE WRAPPER
+========================= */
+.result-page-wrapper{
+    width:100%;
+    padding:30px;
+}
+
+/* =========================
+   TOP CARDS
+========================= */
+.result-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+    margin-bottom:30px;
+}
+
+/* CARD */
+.stat-card{
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+
+    border:1px solid #edf2f7;
+
+    transition:.3s;
+}
+
+/* HOVER */
+.stat-card:hover{
+    transform:translateY(-5px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+/* TITLE */
+.stat-card p{
+    color:#64748b;
+
+    font-size:14px;
+
+    margin-bottom:12px;
+}
+
+/* NUMBER */
+.stat-card h2{
+    font-size:36px;
+
+    color:#0f172a;
+}
+
+/* COLORS */
+.correct-card h2{
+    color:#059669;
+}
+
+.wrong-card h2{
+    color:#dc2626;
+}
+
+.marks-card h2{
+    color:#d97706;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+.table-wrapper{
+    width:100%;
+
+    background:#fff;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+
+    border:1px solid #edf2f7;
+}
+
+/* =========================
+   TABLE
+========================= */
+.table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    font-family:'Poppins',sans-serif;
+}
+
+/* =========================
+   TABLE HEADER
+========================= */
+.table thead{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.table th{
+    padding:20px;
+
+    text-align:left;
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+/* =========================
+   TABLE BODY
+========================= */
+.table td{
+    padding:20px;
+
+    border-bottom:1px solid #f1f5f9;
+
+    color:#334155;
+
+    font-size:14px;
+}
+
+/* ROW EFFECT */
+.table tbody tr{
+    transition:.3s;
+}
+
+/* HOVER */
+.table tbody tr:hover{
+    background:#fff7ed;
+}
+
+/* ZEBRA */
+.table tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+/* =========================
+   MARKS
+========================= */
+.table td:last-child{
+    font-weight:700;
+    color:#d97706;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1000px){
+
+    .result-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .table-wrapper{
+        overflow-x:auto;
+    }
+
+    .table{
+        min-width:700px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .result-stats{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+
+<div class="result-page-wrapper">
+
+    <!-- STATS -->
+    <div class="result-stats">
+
+        <div class="stat-card">
+            <p>Total Students</p>
+            <h2>{{ results|length }}</h2>
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>User Name</th>
+                    <th>Correct Answers</th>
+                    <th>Wrong Answers</th>
+                    <th>Total Marks</th>
+                    <th> Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for result in results %}
+
+                <tr>
+
+                    <td>{{ result.user_name }}</td>
+
+                    <td>{{ result.correct_answers }}</td>
+
+                    <td>{{ result.wrong_answers }}</td>
+
+                    <td>{{ result.total_marks }}</td>
+
+                    <td>
+                        {% if result.total_marks >= 50 %}
+                            <span class="badge bg-success">Pass</span>
+                        {% else %}
+                            <span class="badge bg-danger">Fail</span>
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}

@@ -43,3 +43,18 @@ class TeamMember(models.Model):
     bio = models.TextField(default="")
     def __str__(self):
         return self.name
+    
+
+class QuestionPaper(models.Model):
+    quetion = models.TextField()
+    option_1 = models.CharField(max_length=255)
+    option_2 = models.CharField(max_length=255)
+    option_3 = models.CharField(max_length=255)
+    option_4 = models.CharField(max_length=255)
+    answer = models.CharField(max_length=255)
+    marks = models.IntegerField(default="")
+    
+    def __str__(self):
+        return self.title
+    
+

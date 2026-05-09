@@ -1,0 +1,448 @@
+
+{% include "admin/navbar.html" %}
+<style>
+ /* =========================
+   PAGE CONTAINER
+========================= */
+.main-content{
+    margin-left:280px;
+    padding:30px;
+    min-height:100vh;
+    background:#f8fafc;
+}
+
+/* =========================
+   QUESTION SECTION
+========================= */
+.add-question-section{
+    width:100%;
+}
+
+/* =========================
+   FORM BOX
+========================= */
+.question-form-box{
+    width:100%;
+    background:#fff;
+
+    padding:35px;
+    border-radius:28px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+    border:1px solid #edf2f7;
+
+    animation:none;
+}
+
+/* =========================
+   HEADER
+========================= */
+.form-header{
+    margin-bottom:35px;
+}
+
+.form-header span{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:16px;
+}
+
+.form-header h2{
+    font-size:34px;
+    color:#0f172a;
+    margin-bottom:10px;
+}
+
+.form-header p{
+    color:#64748b;
+    line-height:1.8;
+}
+
+/* =========================
+   FORM GRID
+========================= */
+.question-form{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+/* =========================
+   FORM GROUP
+========================= */
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+/* FULL WIDTH */
+.full-width{
+    grid-column:1 / -1;
+}
+
+/* =========================
+   LABEL
+========================= */
+.form-group label{
+    margin-bottom:8px;
+
+    font-size:14px;
+    font-weight:600;
+
+    color:#334155;
+}
+
+/* =========================
+   INPUT / SELECT / TEXTAREA
+========================= */
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+
+    padding:15px 18px;
+
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    outline:none;
+    transition:.3s;
+
+    font-size:14px;
+    color:#334155;
+}
+
+/* TEXTAREA */
+.form-group textarea{
+    min-height:140px;
+    resize:vertical;
+}
+
+/* FOCUS */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#d97706;
+    background:#fff;
+
+    box-shadow:0 0 0 4px rgba(217,119,6,.08);
+}
+
+/* =========================
+   BUTTON
+========================= */
+.question-form button{
+    grid-column:1 / -1;
+
+    padding:16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.3s;
+
+    box-shadow:0 12px 25px rgba(217,119,6,.15);
+}
+
+.question-form button:hover{
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 30px rgba(217,119,6,.25);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1200px){
+
+    .question-form{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:768px){
+
+    .main-content{
+        margin-left:90px;
+        padding:20px;
+    }
+
+    .question-form{
+        grid-template-columns:1fr;
+    }
+
+    .question-form-box{
+        padding:25px;
+    }
+
+    .form-header h2{
+        font-size:28px;
+    }
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+.table-wrapper{
+    width:100%;
+    margin-top:30px;
+
+    background:#fff;
+
+    border-radius:24px;
+    overflow:hidden;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+    border:1px solid #edf2f7;
+}
+
+/* =========================
+   TABLE
+========================= */
+.question-table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'Poppins',sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+.question-table thead{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.question-table th{
+    padding:18px 20px;
+
+    text-align:left;
+
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+
+    white-space:nowrap;
+}
+
+/* =========================
+   BODY
+========================= */
+.question-table td{
+    padding:18px 20px;
+
+    border-bottom:1px solid #f1f5f9;
+
+    font-size:14px;
+    color:#334155;
+
+    vertical-align:middle;
+}
+
+/* =========================
+   QUESTION WIDTH
+========================= */
+.question-table td:nth-child(2){
+    max-width:300px;
+    line-height:1.7;
+}
+
+/* =========================
+   ROW EFFECTS
+========================= */
+.question-table tbody tr{
+    transition:.3s;
+}
+
+.question-table tbody tr:hover{
+    background:#fff7ed;
+}
+
+.question-table tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+/* =========================
+   ANSWER COLUMN
+========================= */
+.question-table td:nth-child(7){
+    font-weight:600;
+    color:#059669;
+}
+
+/* =========================
+   MARKS
+========================= */
+.question-table td:nth-child(8){
+    font-weight:700;
+    color:#d97706;
+}
+
+/* =========================
+   ACTION BUTTON
+========================= */
+.question-table td a{
+    display:inline-block;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    background:#ef4444;
+    color:#fff;
+
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.question-table td a:hover{
+    transform:translateY(-3px);
+
+    background:#dc2626;
+
+    box-shadow:0 12px 20px rgba(239,68,68,.25);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1200px){
+
+    .table-wrapper{
+        overflow-x:auto;
+    }
+
+    .question-table{
+        min-width:1100px;
+    }
+}
+</style>
+
+<section class="add-question-section">
+
+    <div class="question-form-box">
+
+        <div class="form-header">
+            <span>ADMIN PANEL</span>
+            <h2>Add Aptitude Question</h2>
+            <p>
+                Create Python aptitude questions and manage your online test system.
+            </p>
+        </div>
+
+        <form class="question-form" method="post" action="/admin/add_question/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- QUESTION -->
+            <div class="form-group full-width">
+                <label>Question</label>
+                <textarea placeholder="Enter question here..." name="question" required></textarea>
+            </div>
+
+            <!-- OPTIONS -->
+            <div class="form-group">
+                <label>Option A</label>
+                <input type="text" placeholder="Enter option A" name="option_1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Option B</label>
+                <input type="text" placeholder="Enter option B" name="option_2" required>
+            </div>
+
+            <div class="form-group">
+                <label>Option C</label>
+                <input type="text" placeholder="Enter option C" name="option_3" required>
+            </div>
+
+            <div class="form-group">
+                <label>Option D</label>
+                <input type="text" placeholder="Enter option D" name="option_4" required>
+            </div>
+
+            <!-- CORRECT ANSWER -->
+            <div class="form-group">
+                <label>Correct Answer</label>
+
+                <select name="answer" required>
+                    <option disabled selected>Select Correct Answer</option>
+                    <option value="option_1">Option A</option>
+                    <option value="option_2">Option B</option>
+                    <option value="option_3">Option C</option>
+                    <option value="option_4">Option D</option>
+                </select>
+            </div>
+
+            <!-- MARKS -->
+            <div class="form-group">
+                <label>Question Marks</label>
+                <input type="number" placeholder="Enter marks" value='2' name="marks" required>
+            </div>
+
+            <!-- BUTTON -->
+            <button type="submit">
+                Add Question
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<table class="question-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Option A</th>
+            <th>Option B</th>
+            <th>Option C</th>
+            <th>Option D</th>
+            <th>Answer</th>
+            <th>Marks</th>
+            <th>Actions</th>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for question in questions %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ question.quetion }}</td>
+            <td>{{ question.option_1 }}</td>
+            <td>{{ question.option_2 }}</td>
+            <td>{{ question.option_3 }}</td>
+            <td>{{ question.option_4 }}</td>
+            <td>{{ question.answer }}</td>
+            <td>{{ question.marks }}</td>
+            <td>
+
+                <a href="{% url 'delete_question' question.id %}">Delete</a>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% include "admin/footer.html" %}
