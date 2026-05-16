@@ -11,7 +11,7 @@ def login(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
-        if username == "rakh0745.com" and password == "rakh0745":
+        if username == "rakh0745@gmail.com" and password == "rakh0745":
             req.session["admin"] = username
             req.session["admin_logged_in"] = True
             return redirect("/admin/home")      
