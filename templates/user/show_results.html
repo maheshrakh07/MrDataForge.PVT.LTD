@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Results</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+       /* =========================
+   RESET
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8fafc;
+
+    display:flex;
+
+    min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.dashboard-sidebar{
+    width:280px;
+
+    background:linear-gradient(180deg,#0f172a,#1e293b);
+
+    padding:30px 20px;
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    height:100vh;
+}
+
+/* LOGO */
+.sidebar-logo{
+    margin-bottom:40px;
+}
+
+.sidebar-logo h2{
+    color:#fff;
+
+    font-size:28px;
+}
+
+/* MENU */
+.sidebar-menu{
+    list-style:none;
+}
+
+.sidebar-menu li{
+    margin-bottom:15px;
+}
+
+/* LINKS */
+.sidebar-menu li a{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:16px 18px;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    color:#cbd5e1;
+
+    transition:.3s;
+}
+
+/* ACTIVE */
+.sidebar-menu li.active a,
+.sidebar-menu li a:hover{
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    color:#fff;
+
+    transform:translateX(5px);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.dashboard-main{
+    margin-left:280px;
+
+    width:calc(100% - 280px);
+
+    padding:30px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.dashboard-header{
+    background:#fff;
+
+    padding:22px 30px;
+
+    border-radius:24px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    margin-bottom:40px;
+}
+
+/* TITLE */
+.header-title h2{
+    font-size:32px;
+
+    color:#0f172a;
+
+    margin-bottom:8px;
+}
+
+.header-title p{
+    color:#64748b;
+}
+
+/* PROFILE */
+.profile-box{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    background:#f8fafc;
+
+    padding:10px 18px;
+
+    border-radius:16px;
+}
+
+.profile-box img{
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+}
+
+/* =========================
+   RESULT SECTION
+========================= */
+.results-section{
+    background:#fff;
+
+    border-radius:30px;
+
+    padding:40px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+}
+
+/* TOP */
+.results-top{
+    margin-bottom:35px;
+}
+
+/* TAG */
+.results-top span{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:18px;
+}
+
+/* TITLE */
+.results-top h1{
+    font-size:42px;
+
+    color:#0f172a;
+}
+
+/* =========================
+   TABLE
+========================= */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+.result-table{
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+/* HEADER */
+.result-table thead{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.result-table th{
+    padding:20px;
+
+    color:#fff;
+
+    text-align:left;
+
+    font-size:14px;
+}
+
+/* BODY */
+.result-table td{
+    padding:20px;
+
+    border-bottom:1px solid #f1f5f9;
+
+    color:#334155;
+}
+
+/* HOVER */
+.result-table tbody tr:hover{
+    background:#fff7ed;
+}
+
+/* COLORS */
+.correct-text{
+    color:#059669;
+    font-weight:700;
+}
+
+.wrong-text{
+    color:#dc2626;
+    font-weight:700;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.dashboard-footer{
+    margin-top:40px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    padding:20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:992px){
+
+    .dashboard-sidebar{
+        width:90px;
+    }
+
+    .sidebar-logo h2,
+    .sidebar-menu li a{
+        font-size:0;
+    }
+
+    .sidebar-menu li a i{
+        font-size:18px;
+    }
+
+    .dashboard-main{
+        margin-left:90px;
+
+        width:calc(100% - 90px);
+    }
+
+}
+
+@media(max-width:768px){
+
+    .dashboard-header{
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .results-top h1{
+        font-size:30px;
+    }
+
+}
+</style>
+
+
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+<aside class="dashboard-sidebar">
+
+    <div class="sidebar-logo">
+        <h2>MR DATAFORGE</h2>
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li>
+            <a href="/appti_profile/">
+                <i class="fas fa-home"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="/test/">
+                <i class="fas fa-laptop-code"></i>
+                Aptitude Test
+            </a>
+        </li>
+
+        <li class="active">
+            <a href="#">
+                <i class="fas fa-chart-bar"></i>
+                Results
+            </a>
+        </li>
+
+        <li>
+            <a href="/apti_logout/">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="dashboard-main">
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+
+        <div class="header-title">
+
+            <h2>
+                Python Aptitude Results
+            </h2>
+
+            <p>
+                Track your performance 🚀
+            </p>
+
+        </div>
+
+        <div class="profile-box">
+
+            <img
+            src="/{{ profile.photo }}">
+
+            <span>
+                {{ profile.name }}
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- RESULT SECTION -->
+    <section class="results-section">
+
+        <div class="results-top">
+
+            <span>
+                TEST PERFORMANCE
+            </span>
+
+            <h1>
+                Your Aptitude Test Results 🎉
+            </h1>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-wrapper">
+
+            <table class="result-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Attempts</th>
+
+                        <th>Total Marks</th>
+
+                        <th>Correct Answers</th>
+
+                        <th>Incorrect Answers</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for result in results %}
+
+                    <tr>
+                        <td>
+                            {{ forloop.counter }}   
+                        </td>
+
+                        <td>
+                            {{ result.total_marks }}
+                        </td>
+
+                        <td class="correct-text">
+                            {{ result.correct_answers }}
+                        </td>
+
+                        <td class="wrong-text">
+                            {{ result.wrong_answers }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="dashboard-footer">
+
+        <p>
+            © 2026 MR DATAFORGE |
+            Python Aptitude Platform
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

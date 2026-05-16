@@ -3,6 +3,7 @@ import os
 from django.shortcuts import render , redirect
 from website import models as user
 from . import models
+from django.db.models import Count
 # Create your views here.
 
 
@@ -10,7 +11,7 @@ def login(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
-        if username == "admin@gmail.com" and password == "admin123":
+        if username == "rakh0745.com" and password == "rakh0745":
             req.session["admin"] = username
             req.session["admin_logged_in"] = True
             return redirect("/admin/home")      
@@ -287,10 +288,35 @@ def delete_question(req, question_id):
 
 
 def results(req):
+
     if not req.session.get("admin_logged_in"):
+
         return redirect("/admin/login")
-    results = user.Result.objects.all()
-    return render(req, "admin/apti_result.html", {"results": results})  
+
+    results = user.Result.objects.values(
+
+        "user_name"
+
+    ).annotate(
+
+        total_attempts=Count("id")
+
+    )
+
+    return render(
+
+        req,
+
+        "admin/apti_result.html",
+
+        {
+
+            "results": results
+
+        }
+
+    )
+
 
 
 def apti_regi_list(req):
@@ -298,3 +324,31 @@ def apti_regi_list(req):
         return redirect("/admin/login")
     registrations = user.AptitudeTestRegistration.objects.all()
     return render(req, "admin/apti_user_list.html", {"registrations": registrations})
+
+def student_attempts(req,name):
+
+    if not req.session.get("admin_logged_in"):
+
+        return redirect("/admin/login")
+
+    attempts = user.Result.objects.filter(
+
+        user_name=name
+
+    ).order_by("-id")
+
+    return render(
+
+        req,
+
+        "admin/student_attempts.html",
+
+        {
+
+            "attempts": attempts,
+
+            "student_name": name
+
+        }
+
+    )

@@ -1,5 +1,144 @@
 <style>
     /* =========================
+   QUESTION GRID
+========================= */
+.questions-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+}
+
+/* QUESTION BOX */
+.question-box{
+    background:#f8fafc;
+
+    border:2px solid #e2e8f0;
+    border-radius:24px;
+
+    padding:25px;
+
+    transition:.3s;
+}
+
+.question-box:hover{
+    border-color:#f59e0b;
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.06);
+}
+
+/* QUESTION NUMBER */
+.question-number-box{
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:18px;
+}
+
+/* TITLE */
+.question-title{
+    font-size:24px;
+
+    line-height:1.5;
+
+    margin-bottom:25px;
+
+    color:#0f172a;
+}
+
+/* OPTIONS */
+.options-container{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+/* OPTION */
+.option-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:16px 18px;
+
+    border:2px solid #e2e8f0;
+    border-radius:16px;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.option-item:hover{
+    border-color:#f59e0b;
+    background:#fff7ed;
+}
+
+/* RADIO */
+.option-item input{
+    width:20px;
+    height:20px;
+
+    accent-color:#f59e0b;
+}
+
+/* TEXT */
+.option-item span{
+    font-size:15px;
+    color:#334155;
+}
+
+/* SUBMIT */
+.submit-btn{
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    color:#fff;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    margin-top:30px;
+
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 25px rgba(217,119,6,.25);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+    .questions-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+/* =========================
    RESET
 ========================= */
 *{
@@ -10,42 +149,41 @@
 }
 
 body{
-    background:#f8fafc;
-    overflow-x:hidden;
-}
+    background:#f1f5f9;
 
-/* =========================
-   LAYOUT
-========================= */
-.aptitude-dashboard-layout{
     display:flex;
+
     min-height:100vh;
 }
 
 /* =========================
    SIDEBAR
 ========================= */
-.dashboard-sidebar{
+.test-sidebar{
     width:280px;
-    background:linear-gradient(180deg,#0f172a,#1e293b);
+
+    background:#0f172a;
 
     padding:30px 20px;
 
     position:fixed;
-    top:0;
-    left:0;
-    height:100vh;
 
-    overflow-y:auto;
+    left:0;
+    top:0;
+
+    height:100vh;
 }
 
 /* LOGO */
 .sidebar-logo{
+    text-align:center;
+
     margin-bottom:40px;
 }
 
 .sidebar-logo h2{
     color:#fff;
+
     font-size:28px;
 }
 
@@ -55,31 +193,30 @@ body{
 }
 
 .sidebar-menu li{
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
+/* LINKS */
 .sidebar-menu li a{
     display:flex;
     align-items:center;
-    gap:14px;
 
-    padding:16px 18px;
+    padding:16px 20px;
 
     border-radius:16px;
 
-    text-decoration:none;
     color:#cbd5e1;
+
+    text-decoration:none;
 
     transition:.3s;
 }
 
-.sidebar-menu li a i{
-    font-size:18px;
-}
-
-.sidebar-menu li a:hover,
-.sidebar-menu li.active a{
+/* ACTIVE */
+.sidebar-menu li.active a,
+.sidebar-menu li a:hover{
     background:linear-gradient(135deg,#d97706,#f59e0b);
+
     color:#fff;
 
     transform:translateX(5px);
@@ -88,8 +225,9 @@ body{
 /* =========================
    MAIN CONTENT
 ========================= */
-.dashboard-main{
+.main-content{
     margin-left:280px;
+
     width:calc(100% - 280px);
 
     padding:30px;
@@ -98,193 +236,88 @@ body{
 /* =========================
    HEADER
 ========================= */
-.dashboard-header{
-    width:100%;
-
+.top-header{
     background:#fff;
 
-    padding:20px 30px;
-
     border-radius:24px;
+
+    padding:24px 30px;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
+    margin-bottom:30px;
 
-    margin-bottom:40px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
 }
 
 /* TITLE */
-.header-title h2{
-    font-size:28px;
+.header-left h1{
+    font-size:34px;
+
     color:#0f172a;
+
+    margin-bottom:8px;
 }
 
-/* =========================
-   PROFILE
-========================= */
-.profile-wrapper{
-    position:relative;
-}
-
-.dashboard-profile{
-    display:flex;
-    align-items:center;
-    gap:14px;
-
-    cursor:pointer;
-}
-
-.dashboard-profile img{
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #f59e0b;
-}
-
-.profile-info h4{
-    color:#0f172a;
-    font-size:16px;
-}
-
-.profile-info p{
+.header-left p{
     color:#64748b;
-    font-size:13px;
 }
 
-/* =========================
-   DROPDOWN
-========================= */
-.profile-dropdown{
-    position:absolute;
-    top:110%;
-    right:0;
-
-    width:220px;
-
-    background:#fff;
-    border-radius:20px;
-
-    box-shadow:0 20px 40px rgba(0,0,0,.08);
-
-    padding:10px;
-
-    display:none;
-    flex-direction:column;
-
-    z-index:999;
-}
-
-.profile-dropdown.active{
-    display:flex;
-}
-
-.profile-dropdown a{
+/* RIGHT */
+.header-right{
     display:flex;
     align-items:center;
-    gap:12px;
 
-    padding:14px 16px;
-
-    border-radius:12px;
-
-    text-decoration:none;
-    color:#334155;
-
-    transition:.3s;
+    gap:20px;
 }
 
-.profile-dropdown a:hover{
-    background:#fff7ed;
-    color:#d97706;
-}
-
-/* =========================
-   HERO
-========================= */
-.dashboard-hero{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:50px;
-    align-items:center;
-}
-
-/* HERO CONTENT */
-.hero-content span{
-    display:inline-block;
-    padding:10px 18px;
-
-    border-radius:40px;
-
-    background:#fff7ed;
-    color:#d97706;
-
-    font-size:13px;
-    font-weight:600;
-
-    margin-bottom:22px;
-}
-
-.hero-content h1{
-    font-size:58px;
-    line-height:1.2;
-
-    color:#0f172a;
-
-    margin-bottom:25px;
-}
-
-.hero-content p{
-    color:#64748b;
-    line-height:1.9;
-
-    margin-bottom:35px;
-}
-
-/* BUTTON */
-.start-test-btn{
-    display:inline-block;
-
-    padding:16px 30px;
+/* TIMER */
+.timer-box{
+    padding:14px 24px;
 
     border-radius:16px;
 
     background:linear-gradient(135deg,#d97706,#f59e0b);
 
     color:#fff;
-    text-decoration:none;
-    font-weight:600;
 
-    transition:.3s;
+    font-weight:700;
 }
 
-.start-test-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 18px 30px rgba(217,119,6,.25);
+/* PROFILE */
+.profile-box{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    background:#f8fafc;
+
+    padding:10px 18px;
+
+    border-radius:16px;
 }
 
-/* IMAGE */
-.hero-image img{
-    width:100%;
-    border-radius:30px;
-    box-shadow:0 25px 50px rgba(0,0,0,.12);
+.profile-box img{
+    width:45px;
+    height:45px;
 
-    animation:floatImage 4s ease-in-out infinite;
+    border-radius:50%;
 }
 
 /* =========================
-   ANIMATION
+   FOOTER
 ========================= */
-@keyframes floatImage{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-10px);
-    }
+.test-footer{
+    margin-top:40px;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#64748b;
 }
 
 /* =========================
@@ -292,171 +325,252 @@ body{
 ========================= */
 @media(max-width:992px){
 
-    .dashboard-sidebar{
-        width:90px;
+    .test-sidebar{
+        width:100%;
+
+        height:auto;
+
+        position:relative;
     }
 
-    .sidebar-logo h2,
-    .sidebar-menu li a span{
-        display:none;
+    body{
+        flex-direction:column;
     }
 
-    .dashboard-main{
-        margin-left:90px;
-        width:calc(100% - 90px);
+    .main-content{
+        margin-left:0;
+
+        width:100%;
     }
 
-    .dashboard-hero{
-        grid-template-columns:1fr;
-    }
-
-    .hero-content h1{
-        font-size:42px;
-    }
 }
 
 @media(max-width:768px){
 
-    .dashboard-header{
+    .top-header{
         flex-direction:column;
         gap:20px;
+
+        text-align:center;
     }
 
-    .hero-content h1{
-        font-size:34px;
+}
+/* =========================
+   ATTEMPT CARD
+========================= */
+.attempt-card{
+    width:100%;
+
+    max-width:420px;
+
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    border-radius:28px;
+
+    padding:30px;
+
+    margin-top:20px;
+
+    display:flex;
+    align-items:center;
+
+    gap:24px;
+
+    box-shadow:0 20px 40px rgba(217,119,6,.25);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+/* GLOW EFFECT */
+.attempt-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    background:rgba(255,255,255,.12);
+
+    border-radius:50%;
+
+    top:-70px;
+    right:-70px;
+}
+
+/* ICON */
+.attempt-icon{
+    width:85px;
+    height:85px;
+
+    min-width:85px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:38px;
+
+    backdrop-filter:blur(10px);
+}
+
+/* CONTENT */
+.attempt-content h2{
+    font-size:48px;
+
+    color:#fff;
+
+    margin-bottom:8px;
+
+    line-height:1;
+}
+
+.attempt-content p{
+    color:#fff7ed;
+
+    font-size:16px;
+
+    font-weight:500;
+}
+
+/* HOVER */
+.attempt-card:hover{
+    transform:translateY(-5px);
+
+    transition:.3s;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    .attempt-card{
+        max-width:100%;
     }
+
+    .attempt-content h2{
+        font-size:38px;
+    }
+
 }
 </style>
+<!-- =========================
+     SIDEBAR
+========================= -->
+<aside class="test-sidebar">
 
+    <div class="sidebar-logo">
+        <h2>MR DATAFORGE</h2>
+    </div>
 
-<section class="aptitude-dashboard-layout">
+    <ul class="sidebar-menu">
 
-    <!-- SIDEBAR -->
-    <aside class="dashboard-sidebar">
+        <li class="active">
+            <a href="/appti_profile/">
+                🏠 Dashboard
+            </a>
+        </li>
 
-        <div class="sidebar-logo">
-            <h2>MR DATAFORGE</h2>
+        <li>
+            <a href="/test/">
+                📝 Aptitude Test
+            </a>
+        </li>
+
+        <li>
+            <a href="/show_results/">
+                📊 Results
+            </a>
+        </li>
+
+      
+
+        <li>
+            <a href="/apti_logout/">
+                🚪 Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main-content">
+
+    <!-- HEADER -->
+    <header class="top-header">
+
+        <div class="header-left">
+
+            <h1>
+                Python Aptitude Test
+            </h1>
+
+            <p>
+                Welcome Back 👋
+            </p>
+
         </div>
 
-        <ul class="sidebar-menu">
+        <div class="header-right">
 
-            <li class="active">
-                <a href="#">
-                    <i class="fas fa-home"></i>
-                    Dashboard
-                </a>
-            </li>
-
-            <li>
-                <a href="/test/">
-                    <i class="fas fa-laptop-code"></i>
-                    Test 1
-                </a>
-            </li>
             
-            <li>
-                <a href="/apti_logout">
-                    <i class="fas fa-chart-bar"></i>
-                    logout
-                </a>
-            </li>
 
-        </ul>
+            <div class="profile-box">
 
-    </aside>
+                <img
+                src="/{{ profile.photo }}">
 
-    <!-- MAIN CONTENT -->
-    <div class="dashboard-main">
+                <span>
+                    {{ profile.name }}
+                </span>
 
-        <!-- HEADER -->
-        <header class="dashboard-header">
-
-            <div class="header-title">
-                <h2>Python Aptitude Dashboard</h2>
-            </div>
-
-            <!-- PROFILE -->
-            <div class="profile-wrapper">
-
-                <div class="dashboard-profile" id="profileToggle">
-
-                    <img src="/{{ profile.photo }}">
-
-                    <div class="profile-info">
-                        <h4>{{ profile.name }}</h4>
-                        <p>Student</p>
-                    </div>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </div>
-
-                <!-- DROPDOWN -->
-                <div class="profile-dropdown" id="profileDropdown">
-
-                    <a href="#">
-                        <i class="fas fa-user"></i>
-                        Profile
-                    </a>
-
-                    <a href="/apti_logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-
-                </div>
-
-            </div>
-
-        </header>
-
-        <!-- HERO -->
-        <div class="dashboard-hero">
-
-            <div class="hero-content">
-
-                <span>PYTHON APTITUDE TEST</span>
-
-                <h1>
-                    Improve Your Python Logic & Skills 🚀
-                </h1>
-
-                <p>
-                    Start your aptitude test and evaluate your
-                    problem-solving, programming fundamentals,
-                    and logical thinking ability.
-                </p>
-
-                <a href="#" class="start-test-btn">
-                    Start Test Now
-                </a>
-
-            </div>
-
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80">
             </div>
 
         </div>
+
+    </header>
+
+   <!-- =========================
+     ATTEMPT CARD
+========================= -->
+<div class="attempt-card">
+
+    <div class="attempt-icon">
+        📊
+    </div>
+
+    <div class="attempt-content">
+
+        <h2>
+            {{ profile.total_attempts }}
+        </h2>
+
+        <p>
+            Total Test Attempts
+        </p>
 
     </div>
 
-</section>
+</div>
+   
 
-<script>
-const profileToggle = document.getElementById("profileToggle");
-const profileDropdown = document.getElementById("profileDropdown");
+    <!-- FOOTER -->
+    <footer class="test-footer">
 
-profileToggle.addEventListener("click", () => {
-    profileDropdown.classList.toggle("active");
-});
+        <p>
+            © 2026 MR DATAFORGE |
+            Python Aptitude Platform
+        </p>
 
-document.addEventListener("click", function(e){
-    if(
-        !profileToggle.contains(e.target) &&
-        !profileDropdown.contains(e.target)
-    ){
-        profileDropdown.classList.remove("active");
-    }
-});
-</script>
+    </footer>
+
+</div>

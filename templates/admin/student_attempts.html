@@ -1,0 +1,391 @@
+{% include "admin/navbar.html" %}
+
+<style>
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+.result-page-wrapper{
+    width:100%;
+
+    padding:30px;
+}
+
+/* =========================
+   TOP HEADER
+========================= */
+.attempt-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:30px;
+
+    gap:20px;
+}
+
+/* LEFT */
+.attempt-left span{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    background:#fff7ed;
+
+    color:#d97706;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:18px;
+}
+
+/* TITLE */
+.attempt-left h1{
+    font-size:42px;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+}
+
+/* TEXT */
+.attempt-left p{
+    color:#64748b;
+
+    font-size:15px;
+}
+
+/* ATTEMPT CARD */
+.attempt-summary{
+    background:#fff;
+
+    padding:28px 35px;
+
+    border-radius:24px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+
+    text-align:center;
+
+    min-width:220px;
+}
+
+.attempt-summary h2{
+    font-size:42px;
+
+    color:#d97706;
+
+    margin-bottom:10px;
+}
+
+.attempt-summary p{
+    color:#64748b;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+.table-wrapper{
+    width:100%;
+
+    background:#fff;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+
+    border:1px solid #edf2f7;
+}
+
+/* =========================
+   TABLE
+========================= */
+.table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    font-family:'Poppins',sans-serif;
+}
+
+/* HEADER */
+.table thead{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.table th{
+    padding:22px;
+
+    text-align:left;
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+/* BODY */
+.table td{
+    padding:22px;
+
+    border-bottom:1px solid #f1f5f9;
+
+    color:#334155;
+
+    font-size:14px;
+
+    vertical-align:middle;
+}
+
+/* ROW EFFECT */
+.table tbody tr{
+    transition:.3s;
+}
+
+/* HOVER */
+.table tbody tr:hover{
+    background:#fff7ed;
+}
+
+/* ZEBRA */
+.table tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+/* =========================
+   ATTEMPT NUMBER
+========================= */
+.attempt-no{
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#fff7ed;
+
+    color:#d97706;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-weight:700;
+}
+
+/* =========================
+   MARKS
+========================= */
+.marks-text{
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#d97706;
+}
+
+/* =========================
+   BADGES
+========================= */
+.pass-badge,
+.fail-badge{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    font-size:13px;
+    font-weight:600;
+}
+
+/* PASS */
+.pass-badge{
+    background:#dcfce7;
+
+    color:#166534;
+}
+
+/* FAIL */
+.fail-badge{
+    background:#fee2e2;
+
+    color:#991b1b;
+}
+
+/* =========================
+   CORRECT / WRONG
+========================= */
+.correct-text{
+    color:#059669;
+
+    font-weight:700;
+}
+
+.wrong-text{
+    color:#dc2626;
+
+    font-weight:700;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1000px){
+
+    .table-wrapper{
+        overflow-x:auto;
+    }
+
+    .table{
+        min-width:800px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .attempt-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .attempt-left h1{
+        font-size:30px;
+    }
+
+}
+
+</style>
+
+<div class="result-page-wrapper">
+
+    <!-- TOP -->
+    <div class="attempt-header">
+
+        <div class="attempt-left">
+
+            <span>
+                STUDENT PERFORMANCE
+            </span>
+
+            <h1>
+                {{ student_name }} Attempt History
+            </h1>
+
+            <p>
+                Complete aptitude test performance and result history.
+            </p>
+
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="attempt-summary">
+
+            <h2>
+                {{ attempts|length }}
+            </h2>
+
+            <p>
+                Total Attempts
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Attempt</th>
+
+                    <th>Correct Answers</th>
+
+                    <th>Wrong Answers</th>
+
+                    <th>Total Marks</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for attempt in attempts %}
+
+                <tr>
+
+                    <!-- ATTEMPT -->
+                    <td>
+
+                        <div class="attempt-no">
+                            {{ forloop.counter }}
+                        </div>
+
+                    </td>
+
+                    <!-- CORRECT -->
+                    <td class="correct-text">
+
+                        {{ attempt.correct_answers }}
+
+                    </td>
+
+                    <!-- WRONG -->
+                    <td class="wrong-text">
+
+                        {{ attempt.wrong_answers }}
+
+                    </td>
+
+                    <!-- MARKS -->
+                    <td class="marks-text">
+
+                        {{ attempt.total_marks }}
+
+                    </td>
+
+                    <!-- STATUS -->
+                    <td>
+
+                        {% if attempt.total_marks >= 50 %}
+
+                        <span class="pass-badge">
+                            ✅ Pass
+                        </span>
+
+                        {% else %}
+
+                        <span class="fail-badge">
+                            ❌ Fail
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}

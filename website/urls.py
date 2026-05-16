@@ -20,6 +20,8 @@ urlpatterns = [
     path('appti_profile/' , views.apti_profile , name="apti_profile"),
     path('test/' , views.test , name="test"),   
     path('submit_test/' , views.submit_test , name="submit_test"),
+    # path('results/' , views.show_results , name="results"),
+    path('show_results/' , views.show_results , name="show_results"),
     
 
 ]

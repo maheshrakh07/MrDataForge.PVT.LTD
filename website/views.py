@@ -103,7 +103,11 @@ def apti_logout(req):
     return redirect("/apti_login/")
 
 def apti_profile(req):
+    if not req.session.get('user_id'):
+        return redirect("/apti_login/")
     profile = models.AptitudeTestRegistration.objects.get(id=req.session.get('user_id'))
+    total_attempts = models.Result.objects.filter(user_name=profile.name).count()
+    profile.total_attempts = total_attempts 
     return render(req , "user/apti_profile.html", {"profile": profile})
 
 
@@ -111,9 +115,11 @@ def apti_profile(req):
 def test(req):
     if not req.session.get('user_id'):
         return redirect("/apti_login/")
+    apti_profile = models.AptitudeTestRegistration.objects.get(id=req.session.get('user_id'))
 
-    all_questions = admin_models.QuestionPaper.objects.all()
 
+    # all_questions = admin_models.QuestionPaper.objects.all()
+    all_questions =admin_models.QuestionPaper.objects.all().order_by('?')
     paginator = Paginator(all_questions, 50)
 
     page_number = req.GET.get('page')
@@ -124,7 +130,8 @@ def test(req):
         req,
         "user/test.html",
         {
-            "paper": paper
+            "paper": paper,
+            "profile": apti_profile
         }
     )
 
@@ -250,3 +257,39 @@ def submit_test(req):
             }
 
         )
+    
+# def show_results(req):
+#     results = models.Result.objects.all()
+#     return render(req , "user/show_results.html", {"results": results})
+
+def show_results(req):
+
+    # LOGIN CHECK
+    if not req.session.get("user_id"):
+
+        return redirect("/apti_login/")
+
+    # LOGIN USER ID
+    user_id =req.session.get("user_id")
+
+    # LOGIN USER
+    profile =models.AptitudeTestRegistration.objects.get(
+        id=user_id
+    )
+
+    # ONLY LOGIN USER RESULTS
+    results =models.Result.objects.filter(
+        user_name=profile.name
+    )
+
+    return render(
+        req,
+        "user/show_results.html",
+        {
+
+            "results":results,
+
+            "profile":profile
+
+        }
+    )

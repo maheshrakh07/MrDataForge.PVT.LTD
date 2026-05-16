@@ -179,6 +179,30 @@
     }
 
 }
+.view-btn{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#d97706,#f59e0b);
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.view-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 25px rgba(217,119,6,.25);
+}
 </style>
 
 <div class="result-page-wrapper">
@@ -200,45 +224,49 @@
 
             <thead>
 
-                <tr>
 
-                    <th>User Name</th>
-                    <th>Correct Answers</th>
-                    <th>Wrong Answers</th>
-                    <th>Total Marks</th>
-                    <th> Status</th>
+    <tr>
 
-                </tr>
+        <th>User Name</th>
 
-            </thead>
+        <th>Total Attempts</th>
 
-            <tbody>
+        <th>View Attempts</th>
 
-                {% for result in results %}
+    </tr>
 
-                <tr>
+</thead>
 
-                    <td>{{ result.user_name }}</td>
 
-                    <td>{{ result.correct_answers }}</td>
+          <tbody>
 
-                    <td>{{ result.wrong_answers }}</td>
+    {% for result in results %}
 
-                    <td>{{ result.total_marks }}</td>
+    <tr>
 
-                    <td>
-                        {% if result.total_marks >= 50 %}
-                            <span class="badge bg-success">Pass</span>
-                        {% else %}
-                            <span class="badge bg-danger">Fail</span>
-                        {% endif %}
-                    </td>
+        <td>
+            {{ result.user_name }}
+        </td>
 
-                </tr>
+        <td>
+            {{ result.total_attempts }}
+        </td>
 
-                {% endfor %}
+        <td>
+<a href="/admin/student_attempts/{{ result.user_name }}/"
+class="view-btn">
 
-            </tbody>
+    View All Attempts
+
+</a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
 
         </table>
 
