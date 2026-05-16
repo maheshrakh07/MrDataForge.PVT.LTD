@@ -14,7 +14,7 @@ class AptitudeTestRegistration(models.Model):
     email = models.EmailField(unique=True)
     gender = models.CharField(max_length=10)
     password = models.CharField(max_length=1000)
-    photo = models.ImageField(upload_to="static/user/") 
+    photo = models.ImageField(upload_to="user/") 
 
 
 class Result(models.Model):
